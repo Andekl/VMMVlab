@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="MusicApp.UI.View.AlbumDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Content="Name" Margin="10 10 10 0"/>
+        <TextBox Grid.Row="1" Text="{Binding Album.Name,
+        Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10 0 10 10"/>
+
+        <Label Grid.Row="2" Content="Band" Margin="10 0"/>
+        <TextBox Grid.Row="3" Text="{Binding Album.Band,
+        Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10 0 10 10"/>
+
+        <StackPanel Grid.Row="7" Orientation="Horizontal">
+            <Button Content="Save" Width="125" Margin="10" 
+                    Command="{Binding SaveCommand}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
