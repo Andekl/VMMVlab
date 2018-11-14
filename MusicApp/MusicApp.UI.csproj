@@ -68,10 +68,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Data\IAlbumLookupDataService.cs" />
-    <Compile Include="Data\IMusicDataService.cs" />
-    <Compile Include="Data\LookupDataService.cs" />
-    <Compile Include="Data\MusicDataService.cs" />
+    <Compile Include="Data\Lookups\IAlbumLookupDataService.cs" />
+    <Compile Include="Data\Repositories\AlbumRepository.cs" />
+    <Compile Include="Data\Lookups\LookupDataService.cs" />
+    <Compile Include="Data\Repositories\IAlbumRepository.cs" />
     <Compile Include="Event\AfterAlbumSavedEvent.cs" />
     <Compile Include="Event\OpenAlbumDetailViewEvent.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
@@ -147,5 +147,6 @@
       <Name>MusicApp.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

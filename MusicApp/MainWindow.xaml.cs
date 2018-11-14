@@ -19,5 +19,10 @@ namespace MusicApp.UI
         {
             await _viewModel.LoadAsync();
         }
+
+        private void AlbumDetailView_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

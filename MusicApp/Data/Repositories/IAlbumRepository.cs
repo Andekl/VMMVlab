@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using MusicApp.Model;
 
-namespace MusicApp.Data
+namespace MusicApp.Data.Repositories
 {
-    public interface IMusicDataService
+    public interface IAlbumRepository
     {
         Task<Album> GetByIdAsync(int albumId);
-        Task SaveAsync(Album album);
+        Task SaveAsync();
+        bool HasChanges();
     }
 }

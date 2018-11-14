@@ -1,4 +1,5 @@
 ﻿using MusicApp.Data;
+using MusicApp.Data.Repositories;
 using MusicApp.Event;
 using MusicApp.Model;
 using Prism.Commands;
@@ -14,21 +15,21 @@ namespace MusicApp.ViewModel
 {
     public class AlbumDetailViewModel : ViewModelBase, IAlbumDetailViewModel
     {
-        private IMusicDataService _musicDataService;
+        private IAlbumRepository _albumrepository;
         private IEventAggregator _eventAggregator;
+        private bool _hasChanges;
 
-        public AlbumDetailViewModel(IMusicDataService musicDataService, IEventAggregator eventAggregator)
+        public AlbumDetailViewModel(IAlbumRepository albumrepository, IEventAggregator eventAggregator)
         {
-            _musicDataService = musicDataService;
+            this._albumrepository = albumrepository;
             _eventAggregator = eventAggregator;
-            _eventAggregator.GetEvent<OpenAlbumDetailViewEvent>().Subscribe(OnOpenDetailViewAsync);
-
             SaveCommand = new DelegateCommand(OnSaveExecute, OnSaveCanExecute);
         }
 
         private async void OnSaveExecute()
         {
-            await _musicDataService.SaveAsync(Album);
+            await _albumrepository.SaveAsync();
+            HasChanges = _albumrepository.HasChanges();
             _eventAggregator.GetEvent<AfterAlbumSavedEvent>().Publish(
                 new AfterAlbumSavedEventArgs
                 {
@@ -37,19 +38,30 @@ namespace MusicApp.ViewModel
                 });
         }
 
-        private bool OnSaveCanExecute()
+
+        public bool HasChanges
         {
-            return true;
+            get { return _hasChanges; }
+            set {
+                if(_hasChanges != value)
+                {
+                    _hasChanges = value;
+                    OnPropertChanged();
+                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                }                
+            }
         }
 
-        private async void OnOpenDetailViewAsync(int albumId)
+
+        private bool OnSaveCanExecute()
         {
-            await LoadAsync(albumId);
+            //return Album != null && HasChanges;
+            return true;
         }
 
         public async Task LoadAsync(int albumId)
         {
-            Album = await _musicDataService.GetByIdAsync(albumId);
+            Album = await _albumrepository.GetByIdAsync(albumId);
         }
 
         private Album _album;

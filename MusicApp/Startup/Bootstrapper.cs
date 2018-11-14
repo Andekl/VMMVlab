@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using MusicApp.Data;
+using MusicApp.Data.Lookups;
+using MusicApp.Data.Repositories;
 using MusicApp.DataAcces;
 using MusicApp.UI;
 using MusicApp.ViewModel;
@@ -27,7 +29,7 @@ namespace MusicApp.Startup
             builder.RegisterType<NavigationViewModel>().As<INavigationViewModel>();
             builder.RegisterType<AlbumDetailViewModel>().As<IAlbumDetailViewModel>();
             builder.RegisterType<LookupDataService>().AsImplementedInterfaces();
-            builder.RegisterType<MusicDataService>().As<IMusicDataService>();
+            builder.RegisterType<AlbumRepository>().As<IAlbumRepository>();
 
             return builder.Build();
         }

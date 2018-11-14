@@ -1,4 +1,5 @@
 ﻿using MusicApp.Data;
+using MusicApp.Data.Lookups;
 using MusicApp.Event;
 using MusicApp.Model;
 using Prism.Events;
@@ -36,25 +37,11 @@ namespace MusicApp.ViewModel
             Albums.Clear();
             foreach (var item in lookup)
             {
-                Albums.Add(new NavigationItemViewModel(item.ID, item.DisplayMember));
+                Albums.Add(new NavigationItemViewModel(item.ID, item.DisplayMember, _eventAggregator));
             }
         }
 
         public ObservableCollection<NavigationItemViewModel> Albums { get; }
-
-        private NavigationItemViewModel _selectedAlbum;
-
-        public NavigationItemViewModel SelectedAlbum
-        {
-            get { return _selectedAlbum; }
-            set { _selectedAlbum = value;
-                OnPropertChanged();
-                if(_selectedAlbum != null)
-                {
-                    _eventAggregator.GetEvent<OpenAlbumDetailViewEvent>().Publish(_selectedAlbum.Id);
-                }
-            }
-        }
 
     }
 }

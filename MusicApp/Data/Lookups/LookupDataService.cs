@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MusicApp.Data
+namespace MusicApp.Data.Lookups
 {
    public class LookupDataService : IAlbumLookupDataService
     {
